@@ -2,24 +2,6 @@ from django.core.exceptions import ValidationError
 from django.db import models
 
 
-class Branch(models.Model):
-    """فرع/معرض تابع للشركة."""
-
-    name = models.CharField("الاسم", max_length=150)
-    city = models.CharField("المدينة", max_length=100)
-    address = models.CharField("العنوان", max_length=255, blank=True)
-    phone = models.CharField("رقم الهاتف", max_length=30, blank=True)
-    whatsapp = models.CharField("واتساب", max_length=30, blank=True)
-    email = models.EmailField("البريد الإلكتروني", blank=True)
-
-    class Meta:
-        verbose_name = "فرع"
-        verbose_name_plural = "الفروع"
-
-    def __str__(self):
-        return f"{self.name} - {self.city}"
-
-
 class Car(models.Model):
     NEW = "NEW"
     USED = "USED"
@@ -88,14 +70,7 @@ class Car(models.Model):
     engine_size = models.CharField("سعة المحرك", max_length=50, blank=True)
     exterior_color = models.CharField("اللون الخارجي", max_length=50, blank=True)
 
-    branch = models.ForeignKey(
-        Branch,
-        verbose_name="المدينة/الفرع",
-        related_name="cars",
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-    )
+    city = models.CharField("المدينة/الفرع", max_length=100, blank=True)
     specification_origin = models.CharField(
         "الوارد/المواصفات", max_length=20, choices=SPEC_ORIGIN_CHOICES, blank=True
     )
