@@ -126,3 +126,10 @@ STATICFILES_DIRS = [PROJECT_ROOT / "static"]
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+# ربط رسائل Django بأصناف تنبيهات Bootstrap (alert-*)
+from django.contrib.messages import constants as messages
+
+MESSAGE_TAGS = {
+    messages.ERROR: "danger",
+}
