@@ -1,0 +1,142 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}معرض السيارات - الرئيسية{% endblock %}
+
+{% block content %}
+
+<section class="p-5 mb-5 rounded-3 text-center text-white" style="background-color: var(--color-secondary);">
+    <h1 class="display-5 fw-bold mb-3">سيارتك القادمة… جديدة أو مستعملة، بثقة كاملة</h1>
+    <p class="lead mb-4">تصفح تشكيلة السيارات الجديدة والمستعملة، واحجز تجربة قيادة أو موعد معاينة في أقل من دقيقة.</p>
+    <div class="d-flex flex-column flex-sm-row justify-content-center gap-3">
+        <a href="{% url 'cars:new_list' %}" class="btn btn-primary btn-lg px-4">تصفح السيارات الجديدة</a>
+        <a href="{% url 'cars:used_list' %}" class="btn btn-outline-light btn-lg px-4">تصفح السيارات المستعملة</a>
+    </div>
+</section>
+
+<section class="mb-5">
+    <div class="row text-center g-4">
+        <div class="col-md-4">
+            <div class="p-4 h-100 border rounded-3">
+                <div class="fs-2 mb-2">🔍</div>
+                <h5 class="fw-bold">فحص شامل</h5>
+                <p class="text-muted mb-0">كل سيارة مستعملة تخضع لفحص دقيق قبل عرضها.</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="p-4 h-100 border rounded-3">
+                <div class="fs-2 mb-2">📋</div>
+                <h5 class="fw-bold">شفافية كاملة</h5>
+                <p class="text-muted mb-0">السعر والممشى والمواصفات واضحة بدون مفاجآت.</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="p-4 h-100 border rounded-3">
+                <div class="fs-2 mb-2">🛡️</div>
+                <h5 class="fw-bold">ضمان وموثوقية</h5>
+                <p class="text-muted mb-0">خدمة ما بعد البيع تمنحك راحة بال دائمة.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="mb-5">
+    <h2 class="h3 fw-bold mb-4 text-center">لماذا تختار معرضنا؟</h2>
+    <div class="row g-4">
+        <div class="col-md-4">
+            <div class="p-4 h-100 bg-light rounded-3">
+                <h6 class="fw-bold">تشكيلة متنوعة</h6>
+                <p class="text-muted mb-0 small">سيارات جديدة ومستعملة من مختلف الماركات والفئات في مكان واحد.</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="p-4 h-100 bg-light rounded-3">
+                <h6 class="fw-bold">خطوة تالية واضحة</h6>
+                <p class="text-muted mb-0 small">حجز تجربة قيادة أو معاينة مباشرة من صفحة السيارة دون تعقيد.</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="p-4 h-100 bg-light rounded-3">
+                <h6 class="fw-bold">فريق مبيعات متعاون</h6>
+                <p class="text-muted mb-0 small">نتابع طلبك ونرد عليك بسرعة عبر قنوات التواصل المتاحة.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="mb-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="h3 fw-bold mb-0">أحدث السيارات المستعملة</h2>
+        <a href="{% url 'cars:used_list' %}" class="btn btn-sm btn-outline-primary">عرض الكل</a>
+    </div>
+    {% if used_cars %}
+        <div class="row g-4">
+            {% for car in used_cars %}
+                <div class="col-sm-6 col-lg-4">
+                    <div class="card h-100">
+                        {% with img=car.primary_image %}
+                            {% if img %}
+                                <img src="{{ img.image.url }}" class="card-img-top" alt="{{ car }}" style="height: 180px; object-fit: cover;">
+                            {% else %}
+                                <div class="bg-light d-flex align-items-center justify-content-center" style="height: 180px;">
+                                    <span class="text-muted">لا توجد صورة</span>
+                                </div>
+                            {% endif %}
+                        {% endwith %}
+                        <div class="card-body">
+                            <h6 class="card-title fw-bold">{{ car.brand }} {{ car.model_name }} {{ car.year }}</h6>
+                            <p class="card-text small text-muted mb-1">
+                                {% if car.price %}{{ car.price|floatformat:0 }} ريال{% endif %}
+                                {% if car.mileage_km %}· {{ car.mileage_km }} كم{% endif %}
+                            </p>
+                            {% if car.city %}<p class="card-text small text-muted mb-0">{{ car.city }}</p>{% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p class="text-muted">لا توجد سيارات مستعملة متاحة حاليًا.</p>
+    {% endif %}
+</section>
+
+<section class="mb-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="h3 fw-bold mb-0">أحدث السيارات الجديدة</h2>
+        <a href="{% url 'cars:new_list' %}" class="btn btn-sm btn-outline-primary">عرض الكل</a>
+    </div>
+    {% if new_cars %}
+        <div class="row g-4">
+            {% for car in new_cars %}
+                <div class="col-sm-6 col-lg-4">
+                    <div class="card h-100">
+                        {% with img=car.primary_image %}
+                            {% if img %}
+                                <img src="{{ img.image.url }}" class="card-img-top" alt="{{ car }}" style="height: 180px; object-fit: cover;">
+                            {% else %}
+                                <div class="bg-light d-flex align-items-center justify-content-center" style="height: 180px;">
+                                    <span class="text-muted">لا توجد صورة</span>
+                                </div>
+                            {% endif %}
+                        {% endwith %}
+                        <div class="card-body">
+                            <h6 class="card-title fw-bold">{{ car.brand }} {{ car.model_name }} {{ car.year }}</h6>
+                            {% if car.trim %}<p class="card-text small text-muted mb-1">{{ car.trim }}</p>{% endif %}
+                            {% if car.price %}<p class="card-text small text-muted mb-0">ابتداءً من {{ car.price|floatformat:0 }} ريال</p>{% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p class="text-muted">لا توجد سيارات جديدة متاحة حاليًا.</p>
+    {% endif %}
+</section>
+
+<section class="p-4 rounded-3 bg-light text-center">
+    <h2 class="h4 fw-bold mb-2">تحتاج مساعدة في اختيار سيارتك؟</h2>
+    <p class="text-muted mb-3">فريقنا جاهز للرد على استفساراتك.</p>
+    <p class="mb-0">📞 0500000000 &nbsp;|&nbsp; ✉️ info@example.com</p>
+</section>
+
+{% endblock %}

@@ -1,0 +1,63 @@
+/* ثوابت تصميم الموقع: الخط والألوان */
+@import url("https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap");
+
+:root {
+  --color-primary: #8bc34a;       /* أخضر فاتح */
+  --color-primary-dark: #689f38;  /* أخضر فاتح - تدرج أغمق للـ hover */
+  --color-secondary: #1b5e20;     /* أخضر غامق */
+  --color-secondary-light: #2e7d32;
+
+  --bs-primary: var(--color-primary);
+  --bs-primary-rgb: 139, 195, 74;
+  --bs-secondary: var(--color-secondary);
+  --bs-secondary-rgb: 27, 94, 32;
+  --bs-link-color: var(--color-secondary);
+  --bs-link-hover-color: var(--color-primary-dark);
+  --bs-link-color-rgb: 27, 94, 32;
+}
+
+body {
+  font-family: "Cairo", sans-serif;
+}
+
+.btn-primary {
+  --bs-btn-bg: var(--color-primary);
+  --bs-btn-border-color: var(--color-primary);
+  --bs-btn-color: #fff;
+  --bs-btn-hover-bg: var(--color-primary-dark);
+  --bs-btn-hover-border-color: var(--color-primary-dark);
+  --bs-btn-hover-color: #fff;
+  --bs-btn-active-bg: var(--color-primary-dark);
+  --bs-btn-active-border-color: var(--color-primary-dark);
+  --bs-btn-active-color: #fff;
+}
+
+.btn-outline-primary {
+  --bs-btn-color: var(--color-primary-dark);
+  --bs-btn-border-color: var(--color-primary);
+  --bs-btn-hover-bg: var(--color-primary);
+  --bs-btn-hover-border-color: var(--color-primary);
+  --bs-btn-hover-color: #fff;
+}
+
+.btn-secondary {
+  --bs-btn-bg: var(--color-secondary);
+  --bs-btn-border-color: var(--color-secondary);
+  --bs-btn-color: #fff;
+  --bs-btn-hover-bg: var(--color-secondary-light);
+  --bs-btn-hover-border-color: var(--color-secondary-light);
+  --bs-btn-hover-color: #fff;
+}
+
+.bg-primary {
+  background-color: var(--color-primary) !important;
+}
+
+.text-primary {
+  color: var(--color-primary-dark) !important;
+}
+
+.navbar.bg-dark,
+footer.bg-dark {
+  background-color: var(--color-secondary) !important;
+}
