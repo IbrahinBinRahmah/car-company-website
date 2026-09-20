@@ -98,6 +98,10 @@ class Car(models.Model):
             if errors:
                 raise ValidationError(errors)
 
+    @property
+    def primary_image(self):
+        return self.images.filter(is_primary=True).first() or self.images.first()
+
 
 class CarImage(models.Model):
     car = models.ForeignKey(Car, related_name="images", on_delete=models.CASCADE)
