@@ -22,7 +22,7 @@
                             <li>الممشى: {{ car.mileage_km }} كم</li>
                             <li>المدينة/الفرع: {{ car.city|default:"—" }}</li>
                         </ul>
-                        <a href="{% url 'cars:detail' car.pk %}" class="btn btn-primary btn-sm mt-3 align-self-start">التفاصيل</a>
+                        <a href="{{ car.get_absolute_url }}" class="btn btn-primary btn-sm mt-3 align-self-start">التفاصيل</a>
                     </div>
                 </div>
             </div>

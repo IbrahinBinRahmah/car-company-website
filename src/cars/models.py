@@ -1,5 +1,6 @@
 from django.core.exceptions import ValidationError
 from django.db import models
+from django.urls import reverse
 
 
 class Car(models.Model):
@@ -87,6 +88,10 @@ class Car(models.Model):
 
     def __str__(self):
         return f"{self.brand} {self.model_name} {self.year}"
+
+    def get_absolute_url(self):
+        name = "cars:new_detail" if self.car_type == self.NEW else "cars:used_detail"
+        return reverse(name, args=[self.pk])
 
     def clean(self):
         if self.car_type == self.USED:

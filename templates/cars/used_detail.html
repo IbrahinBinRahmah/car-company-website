@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block title %}{{ car }}{% endblock %}
+
+{% block content %}
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'cars:home' %}">الرئيسية</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'cars:used_list' %}">السيارات المستعملة</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{{ car }}</li>
+    </ol>
+</nav>
+
+<div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-4">
+    <div>
+        <span class="badge bg-secondary mb-2">{{ car.get_car_type_display }}</span>
+        <h1 class="h3 fw-bold mb-0">{{ car.brand }} {{ car.model_name }}{% if car.trim %} {{ car.trim }}{% endif %} {{ car.year }}</h1>
+    </div>
+    <div class="text-end">
+        <p class="h4 fw-bold text-primary mb-2">{{ car.price|floatformat:0 }} ريال</p>
+        <a href="#booking" class="btn btn-primary">حجز معاينة</a>
+    </div>
+</div>
+
+<div class="row g-4">
+    <div class="col-lg-7">
+        {% include "cars/includes/gallery.html" %}
+    </div>
+
+    <div class="col-lg-5">
+        <h2 class="h5 fw-bold mb-3">المواصفات الأساسية</h2>
+        <table class="table table-striped mb-0">
+            <tbody>
+                <tr><th scope="row">الممشى</th><td>{{ car.mileage_km }} كم</td></tr>
+                <tr><th scope="row">السنة</th><td>{{ car.year }}</td></tr>
+                <tr><th scope="row">ناقل الحركة (القير)</th><td>{{ car.get_transmission_display|default:"—" }}</td></tr>
+                <tr><th scope="row">نوع الوقود</th><td>{{ car.get_fuel_type_display|default:"—" }}</td></tr>
+                <tr><th scope="row">المحرك</th><td>{{ car.engine_size|default:"—" }}</td></tr>
+                <tr><th scope="row">اللون</th><td>{{ car.exterior_color|default:"—" }}</td></tr>
+                <tr><th scope="row">المدينة/الفرع</th><td>{{ car.city|default:"—" }}</td></tr>
+                <tr><th scope="row">الوارد</th><td>{{ car.get_specification_origin_display|default:"—" }}</td></tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% if car.short_description %}
+    <section class="mt-4">
+        <h2 class="h5 fw-bold mb-2">وصف الحالة</h2>
+        <p class="mb-0">{{ car.short_description|linebreaksbr }}</p>
+    </section>
+{% endif %}
+
+<section id="booking" class="card border-primary mt-4">
+    <div class="card-body">
+        <h2 class="h5 fw-bold">حجز معاينة لهذه السيارة</h2>
+        <p class="text-muted mb-0">نموذج حجز المعاينة سيُفعَّل قريبًا (المهمة 3.8.2).</p>
+    </div>
+</section>
+
+<a href="{% url 'cars:used_list' %}" class="btn btn-outline-secondary mt-4">العودة لقائمة السيارات المستعملة</a>
+{% endblock %}

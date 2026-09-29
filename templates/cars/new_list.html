@@ -19,7 +19,7 @@
                         {% if car.trim %}<p class="card-text small text-muted mb-1">{{ car.trim }}</p>{% endif %}
                         {% if car.short_description %}<p class="card-text small text-muted mb-1">{{ car.short_description|truncatewords:15 }}</p>{% endif %}
                         {% if car.price %}<p class="card-text small fw-semibold mb-0">ابتداءً من {{ car.price|floatformat:0 }} ريال</p>{% endif %}
-                        <a href="{% url 'cars:detail' car.pk %}" class="btn btn-primary btn-sm mt-3 align-self-start">التفاصيل</a>
+                        <a href="{{ car.get_absolute_url }}" class="btn btn-primary btn-sm mt-3 align-self-start">التفاصيل</a>
                     </div>
                 </div>
             </div>

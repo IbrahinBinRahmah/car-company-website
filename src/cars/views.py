@@ -83,7 +83,12 @@ def used_list(request):
     return render(request, "cars/used_list.html", context)
 
 
-def car_detail(request, pk):
-    # صفحة مبدئية حتى تنفيذ المهمة 3.7؛ لا تُعرض السيارات المخفية أو المباعة.
-    car = get_object_or_404(Car, pk=pk, status=Car.AVAILABLE)
-    return render(request, "cars/detail.html", {"car": car})
+def new_detail(request, pk):
+    # لا تُعرض السيارات المخفية أو المباعة، ولا المستعملة عبر مسار الجديد.
+    car = get_object_or_404(Car, pk=pk, car_type=Car.NEW, status=Car.AVAILABLE)
+    return render(request, "cars/new_detail.html", {"car": car})
+
+
+def used_detail(request, pk):
+    car = get_object_or_404(Car, pk=pk, car_type=Car.USED, status=Car.AVAILABLE)
+    return render(request, "cars/used_detail.html", {"car": car})

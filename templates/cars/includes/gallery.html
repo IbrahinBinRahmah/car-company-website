@@ -1,0 +1,37 @@
+{# معرض صور السيارة: Carousel من Bootstrap مع صور مصغّرة للتنقل #}
+{% with images=car.images.all %}
+    {% if images %}
+        <div id="carGallery" class="carousel slide mb-2" data-bs-ride="false">
+            <div class="carousel-inner rounded bg-light">
+                {% for img in images %}
+                    <div class="carousel-item{% if forloop.first %} active{% endif %}">
+                        <img src="{{ img.image.url }}" class="d-block w-100 car-gallery-img" alt="{{ car }} - صورة {{ forloop.counter }}">
+                    </div>
+                {% endfor %}
+            </div>
+            {% if images|length > 1 %}
+                <button class="carousel-control-prev" type="button" data-bs-target="#carGallery" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">السابق</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carGallery" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">التالي</span>
+                </button>
+            {% endif %}
+        </div>
+        {% if images|length > 1 %}
+            <div class="d-flex flex-wrap gap-2">
+                {% for img in images %}
+                    <button type="button" class="btn p-0 border-0" data-bs-target="#carGallery" data-bs-slide-to="{{ forloop.counter0 }}" aria-label="عرض الصورة {{ forloop.counter }}">
+                        <img src="{{ img.image.url }}" class="rounded car-gallery-thumb" alt="">
+                    </button>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% else %}
+        <div class="bg-light rounded d-flex align-items-center justify-content-center car-gallery-img">
+            <span class="text-muted">لا توجد صور لهذه السيارة</span>
+        </div>
+    {% endif %}
+{% endwith %}
