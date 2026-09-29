@@ -1,0 +1,46 @@
+{# نموذج الفلاتر المشترك لقوائم السيارات؛ show_city يحدد إظهار فلتر المدينة #}
+<form method="get" class="card card-body mb-4">
+    <div class="row g-3 align-items-end">
+        <div class="col-6 col-md">
+            <label for="f-brand" class="form-label small">الماركة</label>
+            <select name="brand" id="f-brand" class="form-select">
+                <option value="">الكل</option>
+                {% for brand in options.brands %}
+                    <option value="{{ brand }}" {% if brand == filters.brand %}selected{% endif %}>{{ brand }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="col-6 col-md">
+            <label for="f-year" class="form-label small">السنة</label>
+            <select name="year" id="f-year" class="form-select">
+                <option value="">الكل</option>
+                {% for year in options.years %}
+                    <option value="{{ year }}" {% if year == filters.year %}selected{% endif %}>{{ year }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        {% if show_city %}
+            <div class="col-6 col-md">
+                <label for="f-city" class="form-label small">المدينة/الفرع</label>
+                <select name="city" id="f-city" class="form-select">
+                    <option value="">الكل</option>
+                    {% for city in options.cities %}
+                        <option value="{{ city }}" {% if city == filters.city %}selected{% endif %}>{{ city }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        {% endif %}
+        <div class="col-6 col-md">
+            <label for="f-price-min" class="form-label small">السعر من (ريال)</label>
+            <input type="number" min="0" step="1000" name="price_min" id="f-price-min" class="form-control" value="{{ filters.price_min|default_if_none:'' }}">
+        </div>
+        <div class="col-6 col-md">
+            <label for="f-price-max" class="form-label small">السعر إلى (ريال)</label>
+            <input type="number" min="0" step="1000" name="price_max" id="f-price-max" class="form-control" value="{{ filters.price_max|default_if_none:'' }}">
+        </div>
+        <div class="col-12 col-md-auto d-flex gap-2">
+            <button type="submit" class="btn btn-primary">تطبيق</button>
+            <a href="{{ request.path }}" class="btn btn-outline-secondary">إعادة ضبط</a>
+        </div>
+    </div>
+</form>

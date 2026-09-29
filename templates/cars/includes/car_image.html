@@ -1,0 +1,9 @@
+{% with img=car.primary_image %}
+    {% if img %}
+        <img src="{{ img.image.url }}" class="card-img-top" alt="{{ car }}" style="height: 180px; object-fit: cover;">
+    {% else %}
+        <div class="bg-light d-flex align-items-center justify-content-center" style="height: 180px;">
+            <span class="text-muted">لا توجد صورة</span>
+        </div>
+    {% endif %}
+{% endwith %}
