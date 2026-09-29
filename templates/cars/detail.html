@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block title %}{{ car }}{% endblock %}
+
+{% block content %}
+<h1 class="h3 fw-bold mb-3">{{ car.brand }} {{ car.model_name }} {{ car.year }}</h1>
+<p class="text-muted">صفحة التفاصيل الكاملة قيد الإعداد (المهمة 3.7 من الـ Backlog).</p>
+<a href="{% if car.car_type == 'NEW' %}{% url 'cars:new_list' %}{% else %}{% url 'cars:used_list' %}{% endif %}" class="btn btn-outline-secondary">العودة للقائمة</a>
+{% endblock %}

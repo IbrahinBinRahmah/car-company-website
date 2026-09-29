@@ -4,5 +4,30 @@
 
 {% block content %}
 <h1 class="h3 fw-bold mb-3">السيارات الجديدة</h1>
-<p class="text-muted">قائمة السيارات الجديدة قيد الإعداد (المهمة 3.4 من الـ Backlog).</p>
+
+{% include "cars/includes/filters.html" with show_city=False %}
+<p class="text-muted mb-3">عدد النتائج: {{ cars|length }}</p>
+
+{% if cars %}
+    <div class="row g-4">
+        {% for car in cars %}
+            <div class="col-sm-6 col-lg-4">
+                <div class="card h-100">
+                    {% include "cars/includes/car_image.html" %}
+                    <div class="card-body d-flex flex-column">
+                        <h6 class="card-title fw-bold">{{ car.brand }} {{ car.model_name }} {{ car.year }}</h6>
+                        {% if car.trim %}<p class="card-text small text-muted mb-1">{{ car.trim }}</p>{% endif %}
+                        {% if car.short_description %}<p class="card-text small text-muted mb-1">{{ car.short_description|truncatewords:15 }}</p>{% endif %}
+                        {% if car.price %}<p class="card-text small fw-semibold mb-0">ابتداءً من {{ car.price|floatformat:0 }} ريال</p>{% endif %}
+                        <a href="{% url 'cars:detail' car.pk %}" class="btn btn-primary btn-sm mt-3 align-self-start">التفاصيل</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% elif is_filtered %}
+    <p class="text-muted">لا توجد سيارات مطابقة للفلاتر. <a href="{{ request.path }}">عرض كل السيارات</a></p>
+{% else %}
+    <p class="text-muted">لا توجد سيارات جديدة متاحة حاليًا.</p>
+{% endif %}
 {% endblock %}
