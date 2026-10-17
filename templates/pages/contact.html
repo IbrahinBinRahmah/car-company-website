@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block title %}تواصل معنا - معرض السيارات{% endblock %}
+
+{% block content %}
+<h1 class="fw-bold mb-4">تواصل معنا</h1>
+
+<div class="row g-4">
+    <div class="col-lg-5">
+        {# معلومات اتصال تجريبية؛ تُستبدل ببيانات المعرض الفعلية. #}
+        <div class="border rounded-3 p-4 mb-4">
+            <h5 class="fw-bold mb-3">معلومات الاتصال</h5>
+            <ul class="list-unstyled mb-0">
+                <li class="mb-2">📞 الهاتف: <a href="tel:+966500000000" dir="ltr">+966 50 000 0000</a></li>
+                <li class="mb-2">✉️ البريد الإلكتروني: <a href="mailto:info@example.com">info@example.com</a></li>
+                <li class="mb-2">📍 العنوان: الرياض، المملكة العربية السعودية</li>
+                <li>🕘 أوقات العمل: السبت – الخميس، 9 صباحًا – 10 مساءً</li>
+            </ul>
+        </div>
+        <div class="ratio ratio-4x3 rounded-3 overflow-hidden border">
+            <iframe
+                src="https://www.google.com/maps?q=Riyadh,Saudi+Arabia&output=embed"
+                title="موقع المعرض على الخريطة"
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+                allowfullscreen
+            ></iframe>
+        </div>
+    </div>
+
+    <div class="col-lg-7">
+        <div class="border rounded-3 p-4">
+            <h5 class="fw-bold mb-3">أرسل لنا رسالة</h5>
+            <p class="text-muted">أدخل رقم الجوال أو البريد الإلكتروني (أحدهما على الأقل) حتى نتمكن من الرد عليك.</p>
+            <form method="post" novalidate>
+                {% csrf_token %}
+                {% if form.non_field_errors %}
+                    <div class="alert alert-danger">{{ form.non_field_errors|join:" " }}</div>
+                {% endif %}
+                {% for field in form %}
+                    <div class="mb-3">
+                        <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
+                        {{ field }}
+                        {% for error in field.errors %}
+                            <div class="text-danger small mt-1">{{ error }}</div>
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+                <button type="submit" class="btn btn-primary px-4">إرسال</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
