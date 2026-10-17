@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}من نحن - معرض السيارات{% endblock %}
+
+{% block content %}
+<h1 class="fw-bold mb-4">من نحن</h1>
+
+<section class="mb-4">
+    <p class="lead">
+        معرض سيارات سعودي يقدّم تشكيلة من السيارات الجديدة والمستعملة، بهدف أن تكون تجربة شراء السيارة
+        واضحة وسهلة وموثوقة من أول زيارة حتى استلام المفتاح.
+    </p>
+</section>
+
+<section class="row g-4 mb-4">
+    <div class="col-md-6">
+        <div class="border rounded-3 p-4 h-100">
+            <h5 class="fw-bold">ماذا نقدّم؟</h5>
+            <ul class="mb-0">
+                <li>سيارات جديدة مع إمكانية حجز تجربة قيادة.</li>
+                <li>سيارات مستعملة بمعلومات واضحة عن السعر والممشى، مع إمكانية حجز معاينة.</li>
+                <li>فريق جاهز للرد على استفساراتك.</li>
+            </ul>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="border rounded-3 p-4 h-100">
+            <h5 class="fw-bold">قيمنا</h5>
+            <ul class="mb-0">
+                <li>الشفافية في الأسعار والمواصفات.</li>
+                <li>احترام وقت العميل وسرعة التجاوب.</li>
+                <li>الموثوقية في كل سيارة نعرضها.</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<a href="{% url 'leads:contact' %}" class="btn btn-primary">تواصل معنا</a>
+{% endblock %}
